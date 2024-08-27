@@ -1,29 +1,28 @@
-import { component$, useTask$, useStore } from "@builder.io/qwik";
+import {
+  component$,
+  useVisibleTask$,
+  useSignal,
+  useTask$,
+} from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
-  // 상태 관리
-  const state = useStore({ response: "" });
+  const response = useSignal("");
 
-  // 비동기 요청을 위한 useTask$ 사용
-  useTask$(() => {
-    const fetchData = async () => {
-      try {
-        console.log("Fetching data...");
-        const res = await fetch("http://localhost:8080/");
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        const text = await res.json(); // 문자열 응답을 처리
-        state.response = text; // 응답을 상태에 저장
-        console.log(state.response);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        state.response = "Failed to fetch data."; // 에러 메시지 상태 업데이트
+  useTask$(async () => {
+    try {
+      console.log("Fetching data...");
+      const res = await fetch("http://localhost:8080/");
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
       }
-    };
-
-    fetchData(); // 비동기 요청 수행
+      const data = await res.json();
+      response.value = data.message;
+      console.log("Response received:", response.value);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      response.value = "Failed to fetch data.";
+    }
   });
 
   return (
@@ -36,7 +35,7 @@ export default component$(() => {
       </div>
       <div>
         <h2>Server Response:</h2>
-        <p>{state.response}</p> {/* 서버 응답 표시 */}
+        {response.value ? <p>{response.value}</p> : <p>Loading...</p>}
       </div>
     </>
   );
