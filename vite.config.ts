@@ -9,6 +9,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import pkg from "./package.json";
 import { partytownVite } from "@builder.io/partytown/utils";
 import { join } from "path";
+import { builderDevTools } from "@builder.io/dev-tools/vite";
 type PkgDep = Record<string, string>;
 const { dependencies = {}, devDependencies = {} } = pkg as any as {
   dependencies: PkgDep;
@@ -23,6 +24,7 @@ errorOnDuplicatesPkgDeps(devDependencies, dependencies);
 export default defineConfig(({ command, mode }): UserConfig => {
   return {
     plugins: [
+      builderDevTools(),
       qwikCity(),
       qwikVite(),
       tsconfigPaths(),
