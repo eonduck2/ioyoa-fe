@@ -1,6 +1,6 @@
 import ky from "ky";
 import { THttpOptions } from "~/types/modules/fetching/fetcher.type";
-import thrower from "../throw/thrower.module";
+import thrower from "../throw/thrower";
 
 export default async (
   url: string,

@@ -1,6 +1,7 @@
 import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { Pagination } from "flowbite-qwik";
+import fetcher from "~/modules/fetching/fetcher";
 
 export default component$(() => {
   const response = useSignal("");
@@ -9,10 +10,7 @@ export default component$(() => {
   useTask$(async () => {
     try {
       console.log("Fetching data...");
-      const res = await fetch("http://localhost:8082/");
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
+      const res = await fetcher("http://localhost:8083/");
       const data = await res.json();
       response.value = data.message;
       console.log("Response received:", response.value);
