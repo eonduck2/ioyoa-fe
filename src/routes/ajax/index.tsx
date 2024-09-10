@@ -9,7 +9,6 @@ export default component$(() => {
 
   useTask$(async () => {
     try {
-      console.log("Fetching data...");
       const res = await fetcher("http://localhost:8083/");
       const data = await res.json();
       response.value = data.message;
