@@ -43,6 +43,7 @@
     "eslint-plugin-qwik": "^1.8.0",
     "flowbite": "^2.5.1",
     "flowbite-qwik": "^0.37.0",
+    "ky": "^1.7.2",
     "postcss": "^8.4.31",
     "prettier": "3.3.3",
     "prettier-plugin-tailwindcss": "^0.5.4",

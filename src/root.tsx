@@ -48,7 +48,7 @@ export default component$(() => {
           />
         )}
         <FlowbiteProviderHeader />
-        <RouterHead />/
+        <RouterHead />
       </head>
       <body lang="en">
         <FlowbiteProvider theme="blue" toastPosition="top-right">
