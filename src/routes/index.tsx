@@ -1,26 +1,37 @@
-import { component$ } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
+import { component$, useSignal, useTask$ } from "@builder.io/qwik";
+import envLoader from "~/modules/env/envLoader";
+import fetcher from "~/modules/fetching/fetcher";
+import urlGeneratorWithPort from "~/modules/url/urlGeneratorWithPort";
+import { envList } from "~/shared/env/envList.static";
 
 export default component$(() => {
+  const response = useSignal("");
+
+  useTask$(async () => {
+    const res = await fetcher(
+      urlGeneratorWithPort(envLoader(envList.PUBLIC_EP_MAIN)),
+    );
+
+    const first_server = await res.json();
+    const sec_res = await fetcher(urlGeneratorWithPort(first_server.route));
+
+    const data = await sec_res.json();
+    // console.log(data);
+    response.value = data.message;
+
+    const test_yt = await fetcher(
+      "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&chart=mostPopular&maxResults=10&regionCode=kr&key=AIzaSyAdAHdRseIVBU9_40L103fmzt4NPRF4GzU",
+    );
+
+    test_yt.json().then((data) => {
+      console.log(data.items[0].snippet);
+    });
+  });
+
   return (
     <>
-      <h1>Hi 👋</h1>
-      <div>
-        Can't wait to see what you build with qwik!
-        <br />
-        Happy coding.
-      </div>
+      <div>{response.value}</div>
+      {/* <div>{envLoader(envList.PUBLIC_BUILDER_API_KEY)}</div> */}
     </>
   );
 });
-
-export const head: DocumentHead = {
-  title: "Welcome to Qwik",
-  meta: [
-    {
-      name: "description",
-      content: "Qwik site description",
-    },
-  ],
-};
-

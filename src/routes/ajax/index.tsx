@@ -1,21 +1,15 @@
-import {
-  component$,
-  useVisibleTask$,
-  useSignal,
-  useTask$,
-} from "@builder.io/qwik";
+import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
+import { Pagination } from "flowbite-qwik";
+import fetcher from "~/modules/fetching/fetcher";
 
 export default component$(() => {
   const response = useSignal("");
+  const currentPage = useSignal(1);
 
   useTask$(async () => {
     try {
-      console.log("Fetching data...");
-      const res = await fetch("http://localhost:8080/");
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
+      const res = await fetcher("http://localhost:8083/");
       const data = await res.json();
       response.value = data.message;
       console.log("Response received:", response.value);
@@ -36,6 +30,9 @@ export default component$(() => {
       <div>
         <h2>Server Response:</h2>
         {response.value ? <p>{response.value}</p> : <p>Loading...</p>}
+      </div>
+      <div class="flex gap-3 p-3 text-center">
+        <Pagination totalPages={100} currentPage={currentPage} />
       </div>
     </>
   );
