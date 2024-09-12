@@ -16,7 +16,6 @@ export default component$(() => {
     const sec_res = await fetcher(urlGeneratorWithPort(first_server.route));
 
     const data = await sec_res.json();
-    // console.log(data);
     response.value = data.message;
 
     const test_yt = await fetcher(
