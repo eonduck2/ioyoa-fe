@@ -13,18 +13,22 @@ export default component$(() => {
     );
 
     const first_server = await res.json();
-    const sec_res = await fetcher(urlGeneratorWithPort(first_server.route));
-
-    const data = await sec_res.json();
-    response.value = data.message;
-
-    const test_yt = await fetcher(
-      "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&chart=mostPopular&maxResults=10&regionCode=kr&key=AIzaSyAdAHdRseIVBU9_40L103fmzt4NPRF4GzU",
+    const res_from_vid_srvr = await fetcher(
+      urlGeneratorWithPort(first_server.route),
     );
 
-    test_yt.json().then((data) => {
-      console.log(data.items[0].snippet);
-    });
+    const data = await res_from_vid_srvr.json();
+    // response.value = data.route;
+
+    console.log(data.items);
+
+    // const test_yt = await fetcher(
+    //   "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&chart=mostPopular&maxResults=10&regionCode=kr&key=AIzaSyAdAHdRseIVBU9_40L103fmzt4NPRF4GzU",
+    // );
+
+    // test_yt.json().then((data) => {
+    //   console.log(data.items[0].snippet);
+    // });
   });
 
   return (
