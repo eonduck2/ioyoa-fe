@@ -18,9 +18,9 @@ export default component$(() => {
     );
 
     const data = await res_from_vid_srvr.json();
-    // response.value = data.route;
+    response.value = data;
 
-    console.log(data.items);
+    // console.log(data.items[0].snippet);
 
     // const test_yt = await fetcher(
     //   "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&chart=mostPopular&maxResults=10&regionCode=kr&key=AIzaSyAdAHdRseIVBU9_40L103fmzt4NPRF4GzU",
