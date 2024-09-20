@@ -19,7 +19,10 @@ export default component$(() => {
       {
         method: "POST",
         body: JSON.stringify({
-          url: "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&chart=mostPopular&maxResults=10&regionCode=kr&key=AIzaSyAdAHdRseIVBU9_40L103fmzt4NPRF4GzU",
+          url: ytApiUrlGenerator("videos", {
+            part: "snippet,contentDetails,status",
+            chart: "mostPopular",
+          }),
         }),
         headers: { "Content-Type": "application/json" },
       },
@@ -28,14 +31,7 @@ export default component$(() => {
     const data = await res_from_vid_srvr.json();
     response.value = data.items[0].id;
 
-    // console.log(data);
-
-    ytApiUrlGenerator("videos", {
-      part: "snippet,statistics",
-      chart: "mostPopular",
-      regionCode: "kr",
-      maxResults: "5",
-    });
+    console.log(data);
   });
 
   return (
@@ -54,7 +50,6 @@ export default component$(() => {
               width="560"
               height="315"
               src={`https://www.youtube.com/embed/${response.value}`}
-              frameBorder="15px"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullscreen
             ></iframe>
