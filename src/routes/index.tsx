@@ -3,14 +3,14 @@ import envLoader from "~/modules/env/envLoader";
 import fetcher from "~/modules/fetching/fetcher";
 import ytApiUrlGenerator from "~/modules/url/api/ytApiUrlGenerator";
 import urlGeneratorWithPort from "~/modules/url/urlGeneratorWithPort";
-import { envList } from "~/shared/env/envList.static";
+import { EnvList } from "~/shared/env/envList.static";
 
 export default component$(() => {
   const response = useSignal("");
 
   useTask$(async () => {
     const res = await fetcher(
-      urlGeneratorWithPort(envLoader(envList.PUBLIC_EP_MAIN)),
+      urlGeneratorWithPort(envLoader(EnvList.PUBLIC_EP_MAIN)),
     );
 
     const first_server = await res.json();
@@ -28,14 +28,14 @@ export default component$(() => {
     const data = await res_from_vid_srvr.json();
     response.value = data.items[0].id;
 
-    console.log(data);
+    // console.log(data);
 
-    // ytApiUrlGenerator("videos", {
-    //   part: "snippet,statistics",
-    //   chart: "mostPopular",
-    //   regionCode: "kr",
-    //   maxResults: "5",
-    // });
+    ytApiUrlGenerator("videos", {
+      part: "snippet,statistics",
+      chart: "mostPopular",
+      regionCode: "kr",
+      maxResults: "5",
+    });
   });
 
   return (
