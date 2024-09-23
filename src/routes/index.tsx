@@ -9,6 +9,8 @@ import mainIndexVideos from "~/yt/videos/mainIndexVideos.static";
 import httpMethod from "~/shared/http/methods/httpMethods.static";
 import type { TRouteIndexVideoItem } from "~/types/route/index.type";
 import mime from "mime";
+import InputWithBtn from "~/components/input/inputWithBtn";
+import Select_underline from "~/components/select/select_underline";
 
 export default component$(() => {
   const response = useSignal<TRouteIndexVideoItem[]>([]);
@@ -45,10 +47,14 @@ export default component$(() => {
             backgroundRepeat: "no-repeat",
           }}
         >
+          <form action="http://localhost:8080">
+            <Select_underline />
+            <InputWithBtn name="gd" />
+          </form>
           <div class="flex h-full w-full items-center justify-center">
-            {response.value!.map((value) => {
+            {/* {response.value!.map((value) => {
               return (
-                <picture>
+                <picture key={value.id}>
                   <source srcset={value.snippet.thumbnails.high.url} />
                   <img
                     src={value.snippet.thumbnails.high.url}
@@ -57,7 +63,7 @@ export default component$(() => {
                   />
                 </picture>
               );
-            })}
+            })} */}
           </div>
         </div>
       </div>
