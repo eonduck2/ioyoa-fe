@@ -4,6 +4,7 @@ import fetcher from "~/modules/fetching/fetcher";
 import ytApiUrlGenerator from "~/modules/url/api/ytApiUrlGenerator";
 import urlGeneratorWithPort from "~/modules/url/urlGeneratorWithPort";
 import { EnvList } from "~/shared/env/envList.static";
+import requestTypes from "~/yt/apiRequestTypes/requestTypes.static";
 
 export default component$(() => {
   const response = useSignal("");
@@ -19,7 +20,7 @@ export default component$(() => {
       {
         method: "POST",
         body: JSON.stringify({
-          url: ytApiUrlGenerator("videos", {
+          url: ytApiUrlGenerator(requestTypes.videos, {
             part: "snippet,contentDetails,status",
             chart: "mostPopular",
           }),
