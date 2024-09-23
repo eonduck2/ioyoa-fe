@@ -5,11 +5,30 @@ import ytApiUrlGenerator from "~/modules/url/api/ytApiUrlGenerator";
 import urlGeneratorWithPort from "~/modules/url/urlGeneratorWithPort";
 import { EnvList } from "~/shared/env/envList.static";
 import requestTypes from "~/yt/apiRequestTypes/requestTypes.static";
-import mainIndexVideosStatic from "~/yt/videos/mainIndexVideos.static";
 import mainIndexVideos from "~/yt/videos/mainIndexVideos.static";
+import httpMethod from "~/shared/http/methods/httpMethods.static";
+import mime from "mime";
+
+interface Thumbnail {
+  url: string;
+}
+
+interface Snippet {
+  thumbnails: {
+    high: Thumbnail;
+  };
+}
+
+interface Video {
+  snippet: Snippet;
+}
+
+interface Response {
+  value: Video[];
+}
 
 export default component$(() => {
-  const response = useSignal("");
+  const response = useSignal([]);
 
   useTask$(async () => {
     const res = await fetcher(
@@ -20,20 +39,18 @@ export default component$(() => {
     const res_from_vid_srvr = await fetcher(
       urlGeneratorWithPort(first_server.route),
       {
-        method: "POST",
+        method: httpMethod.POST,
         body: JSON.stringify({
           url: ytApiUrlGenerator(requestTypes.videos, mainIndexVideos),
         }),
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": mime.getType("json") as string },
       },
     );
 
     const data = await res_from_vid_srvr.json();
-    response.value = data.items[0].id;
-
-    console.log(data.items[0].snippet);
-    console.log(mainIndexVideosStatic);
-    console.log(ytApiUrlGenerator(requestTypes.videos, mainIndexVideos));
+    response.value = data.items;
+    // data.items[0].snippet.thumbnails.high.url;
+    // console.log(typeof response.value);
   });
 
   return (
@@ -48,13 +65,18 @@ export default component$(() => {
           }}
         >
           <div class="flex h-full w-full items-center justify-center">
-            <iframe
-              width="560"
-              height="315"
-              src={`https://www.youtube.com/embed/${response.value}`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullscreen
-            ></iframe>
+            {response.value.map((value) => {
+              return (
+                <picture>
+                  <source srcSet={value.snippet.thumbnails.high.url} />
+                  <img
+                    src={value.snippet.thumbnails.high.url}
+                    alt={value.snippet.title}
+                    style={{ maxWidth: "100%", maxHeight: "100%" }}
+                  />
+                </picture>
+              );
+            })}
           </div>
         </div>
       </div>

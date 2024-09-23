@@ -52,6 +52,7 @@
     "flowbite-qwik": "^0.37.0",
     "jest": "^29.7.0",
     "ky": "^1.7.2",
+    "mime": "^4.0.4",
     "postcss": "^8.4.31",
     "prettier": "3.3.3",
     "prettier-plugin-tailwindcss": "^0.5.4",
