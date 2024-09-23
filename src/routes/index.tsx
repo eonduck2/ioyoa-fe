@@ -5,6 +5,8 @@ import ytApiUrlGenerator from "~/modules/url/api/ytApiUrlGenerator";
 import urlGeneratorWithPort from "~/modules/url/urlGeneratorWithPort";
 import { EnvList } from "~/shared/env/envList.static";
 import requestTypes from "~/yt/apiRequestTypes/requestTypes.static";
+import mainIndexVideosStatic from "~/yt/videos/mainIndexVideos.static";
+import mainIndexVideos from "~/yt/videos/mainIndexVideos.static";
 
 export default component$(() => {
   const response = useSignal("");
@@ -20,10 +22,7 @@ export default component$(() => {
       {
         method: "POST",
         body: JSON.stringify({
-          url: ytApiUrlGenerator(requestTypes.videos, {
-            part: "snippet,contentDetails,status",
-            chart: "mostPopular",
-          }),
+          url: ytApiUrlGenerator(requestTypes.videos, mainIndexVideos),
         }),
         headers: { "Content-Type": "application/json" },
       },
@@ -32,7 +31,9 @@ export default component$(() => {
     const data = await res_from_vid_srvr.json();
     response.value = data.items[0].id;
 
-    console.log(data);
+    console.log(data.items[0].snippet);
+    console.log(mainIndexVideosStatic);
+    console.log(ytApiUrlGenerator(requestTypes.videos, mainIndexVideos));
   });
 
   return (
