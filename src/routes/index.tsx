@@ -49,7 +49,7 @@ export default component$(() => {
         >
           <form action="http://localhost:8080">
             <Select_underline />
-            <InputWithBtn name="gd" />
+            <InputWithBtn />
           </form>
           <div class="flex h-full w-full items-center justify-center">
             {/* {response.value!.map((value) => {
