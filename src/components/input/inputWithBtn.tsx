@@ -1,4 +1,4 @@
-import { component$, useSignal, Slot, PropFunction } from "@builder.io/qwik";
+import { component$, useSignal, PropFunction } from "@builder.io/qwik";
 import { Input, Button } from "flowbite-qwik";
 import { IconSearchOutline } from "flowbite-qwik-icons";
 

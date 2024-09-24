@@ -3,7 +3,7 @@ import {
   useSignal,
   useStylesScoped$,
   $,
-  useVisibleTask$,
+  useTask$,
 } from "@builder.io/qwik";
 
 export default component$(() => {
@@ -77,25 +77,30 @@ export default component$(() => {
     { icon: "📞", label: "Contact" },
   ];
 
-  useVisibleTask$(({ track }) => {
+  useTask$(({ track, cleanup }) => {
     track(() => isHovered.value);
+
+    const timers: ReturnType<typeof setTimeout>[] = [];
 
     if (isHovered.value) {
       activeItems.value = new Array(menuItems.length).fill(false);
-      const showItem = (index: number) => {
-        if (index < menuItems.length) {
+      menuItems.forEach((_, index) => {
+        const timer = setTimeout(() => {
           activeItems.value = [
             ...activeItems.value.slice(0, index),
             true,
             ...activeItems.value.slice(index + 1),
           ];
-          setTimeout(() => showItem(index + 1), 100);
-        }
-      };
-      showItem(0);
+        }, index * 100);
+        timers.push(timer);
+      });
     } else {
       activeItems.value = new Array(menuItems.length).fill(false);
     }
+
+    cleanup(() => {
+      timers.forEach((timer) => clearTimeout(timer));
+    });
   });
 
   return (
@@ -123,7 +128,7 @@ export default component$(() => {
         {menuItems.map((item, index) => (
           <div
             key={index}
-            class={`menu-item ${activeItems.value[index] ? "visible" : ""}`}
+            class={`menu-item ${isHovered.value && activeItems.value[index] ? "visible" : ""}`}
           >
             <span class="icon">{item.icon}</span>
             <span class="label">{item.label}</span>
