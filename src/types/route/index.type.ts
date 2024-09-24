@@ -1,5 +1,5 @@
 export type TRouteIndexVideoItem = {
-  id: string; // id 속성 추가
+  id: string;
   snippet: {
     title: string;
     thumbnails: {

@@ -1,4 +1,4 @@
-import { component$, useSignal, useTask$, $ } from "@builder.io/qwik";
+import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import envLoader from "~/modules/env/envLoader";
 import fetcher from "~/modules/fetching/fetcher";
 import ytApiUrlGenerator from "~/modules/url/api/ytApiUrlGenerator";
@@ -56,8 +56,8 @@ export default component$(() => {
             <Select_underline name="searchCategory" options={categoryOptions} />
             <InputWithBtn name="searchQuery" placeholder="Enter search term" />
           </form>
-          {/* <div class="flex h-full w-full items-center justify-center">
-            {response.value!.map((value) => {
+          <div class="flex h-full w-full items-center justify-center">
+            {/* {response.value!.map((value) => {
               return (
                 <picture key={value.id}>
                   <source srcset={value.snippet.thumbnails.high.url} />
@@ -68,8 +68,8 @@ export default component$(() => {
                   />
                 </picture>
               );
-            })}
-          </div> */}
+            })} */}
+          </div>
         </div>
       </div>
     </>
