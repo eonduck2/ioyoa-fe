@@ -1,4 +1,4 @@
-import { component$, useSignal, useTask$, $ } from "@builder.io/qwik";
+import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import envLoader from "~/modules/env/envLoader";
 import fetcher from "~/modules/fetching/fetcher";
 import ytApiUrlGenerator from "~/modules/url/api/ytApiUrlGenerator";
@@ -13,6 +13,7 @@ import InputWithBtn from "~/components/input/inputWithBtn";
 import Select_underline from "~/components/select/select_underline";
 import { categoryOptions } from "~/routes/index.static";
 import { formHandler } from "~/types/modules/route/index/formHandler";
+import CircleMenu from "~/components/menus/circleMenu";
 
 export default component$(() => {
   const response = useSignal<TRouteIndexVideoItem[]>([]);
@@ -43,34 +44,12 @@ export default component$(() => {
 
   return (
     <>
-      <div class="flex h-full w-full items-center justify-center bg-green-500">
-        <div
-          style={{
-            backgroundImage: "url('./bg-desktop.png')",
-            width: "100vw",
-            height: "100vh",
-            backgroundRepeat: "no-repeat",
-          }}
-        >
-          <form onSubmit$={(e) => formHandler(e, formAction.value)}>
-            <Select_underline name="searchCategory" options={categoryOptions} />
-            <InputWithBtn name="searchQuery" placeholder="Enter search term" />
-          </form>
-          {/* <div class="flex h-full w-full items-center justify-center">
-            {response.value!.map((value) => {
-              return (
-                <picture key={value.id}>
-                  <source srcset={value.snippet.thumbnails.high.url} />
-                  <img
-                    src={value.snippet.thumbnails.high.url}
-                    alt={value.snippet.title}
-                    style={{ maxWidth: "100%", maxHeight: "100%" }}
-                  />
-                </picture>
-              );
-            })}
-          </div> */}
-        </div>
+      <div
+        class="flex h-screen w-screen items-center justify-center"
+        style="background: linear-gradient(180deg, #FE3E3E 0%, #982525 100%);"
+      >
+        <CircleMenu />
+        {/* <img src="./basketball.png" alt="" /> */}
       </div>
     </>
   );
