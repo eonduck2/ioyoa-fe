@@ -1,3 +1,10 @@
-type THttpMethod = "get" | "post" | "put" | "patch" | "head" | "delete";
+type THttpMethod =
+  | "GET"
+  | "POST"
+  | "PUT"
+  | "PATCH"
+  | "HEAD"
+  | "DELETE"
+  | "OPTIONS";
 
 export default THttpMethod;

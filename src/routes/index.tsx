@@ -1,4 +1,4 @@
-import { component$, useSignal, useTask$ } from "@builder.io/qwik";
+import { component$, useSignal, useTask$, useStyles$ } from "@builder.io/qwik";
 import envLoader from "~/modules/env/envLoader";
 import fetcher from "~/modules/fetching/fetcher";
 import ytApiUrlGenerator from "~/modules/url/api/ytApiUrlGenerator";
