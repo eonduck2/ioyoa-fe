@@ -9,10 +9,6 @@ import mainIndexVideos from "~/yt/videos/mainIndexVideos.static";
 import httpMethod from "~/shared/http/methods/httpMethods.static";
 import type { TRouteIndexVideoItem } from "~/types/route/index.type";
 import mime from "mime";
-import InputWithBtn from "~/components/input/inputWithBtn";
-import Select_underline from "~/components/select/select_underline";
-import { categoryOptions } from "~/routes/index.static";
-import { formHandler } from "~/types/modules/route/index/formHandler";
 import CircleMenu from "~/components/menus/circleMenu";
 
 export default component$(() => {

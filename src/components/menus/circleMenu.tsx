@@ -9,13 +9,11 @@ import "./circleMenu.css";
 
 export default component$(() => {
   const isOpen = useSignal(false);
-  const menuRef = useSignal<HTMLDivElement | undefined>();
+  const menuRef = useSignal<HTMLDivElement>();
 
   const menuItems = [
-    { icon: "🏠", label: "Home" },
-    { icon: "📁", label: "Files" },
-    { icon: "⚙️", label: "Settings" },
-    { icon: "📞", label: "Contact" },
+    { icon: "🏠", label: "홈", href: "/" },
+    { icon: "🔍", label: "검색", href: "/search" },
   ];
 
   useTask$(({ track }) => {
@@ -65,10 +63,10 @@ export default component$(() => {
       </div>
       <div ref={menuRef} class={`menu-items ${isOpen.value ? "active" : ""}`}>
         {menuItems.map((item, index) => (
-          <div key={index} class="menu-item">
+          <a key={index} href={item.href} class="menu-item">
             <span class="icon">{item.icon}</span>
             <span class="label">{item.label}</span>
-          </div>
+          </a>
         ))}
       </div>
     </div>
