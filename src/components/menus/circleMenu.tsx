@@ -11,11 +11,6 @@ export default component$(() => {
   const isOpen = useSignal(false);
   const menuRef = useSignal<HTMLDivElement>();
 
-  const menuItems = [
-    { icon: "🏠", label: "홈", href: "/" },
-    { icon: "🔍", label: "검색", href: "/search" },
-  ];
-
   useTask$(({ track }) => {
     track(() => isOpen.value);
 
