@@ -6,6 +6,7 @@ import {
   useVisibleTask$,
 } from "@builder.io/qwik";
 import "./circleMenu.css";
+import { menuItems } from "~/components/menus/circleMenu.static";
 
 export default component$(() => {
   const isOpen = useSignal(false);
