@@ -10,6 +10,7 @@ import pkg from "./package.json";
 import { partytownVite } from "@builder.io/partytown/utils";
 import { join } from "path";
 import { builderDevTools } from "@builder.io/dev-tools/vite";
+import { vanillaExtractPlugin } from "styled-vanilla-extract/vite";
 type PkgDep = Record<string, string>;
 const { dependencies = {}, devDependencies = {} } = pkg as any as {
   dependencies: PkgDep;
@@ -29,6 +30,7 @@ export default defineConfig(({ command, mode }): UserConfig => {
       qwikVite(),
       tsconfigPaths(),
       partytownVite({ dest: join(__dirname, "dist", "~partytown") }),
+      vanillaExtractPlugin(),
     ],
     // This tells Vite which dependencies to pre-build in dev mode.
     optimizeDeps: {

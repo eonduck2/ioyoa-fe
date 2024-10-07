@@ -10,6 +10,7 @@ import httpMethod from "~/shared/http/methods/httpMethods.static";
 import type { TRouteIndexVideoItem } from "~/types/route/index.type";
 import mime from "mime";
 import CircleMenu from "~/components/menus/circleMenu";
+import DynamicMediaCard from "~/components/card/dynamicMediaCard";
 
 export default component$(() => {
   const response = useSignal<TRouteIndexVideoItem[]>([]);
@@ -41,9 +42,15 @@ export default component$(() => {
   return (
     <>
       <div
-        class="flex h-screen w-screen items-center justify-center"
+        class="flex h-screen w-screen flex-col items-center justify-center"
         style="background: linear-gradient(180deg, #FE3E3E 0%, #982525 100%);"
       >
+        <div>
+          <DynamicMediaCard
+            title="테스트 타이틀"
+            description="테스트 데스크립션"
+          />
+        </div>
         <CircleMenu />
         {/* <img src="./basketball.png" alt="" /> */}
       </div>

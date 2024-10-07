@@ -5,7 +5,7 @@ import {
   $,
   useVisibleTask$,
 } from "@builder.io/qwik";
-import "./circleMenu.css";
+import "~/styles/components/menus/circleMenu.css";
 import { menuItems } from "~/components/menus/circleMenu.static";
 
 export default component$(() => {
