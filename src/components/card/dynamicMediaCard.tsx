@@ -1,13 +1,8 @@
 import { component$ } from "@builder.io/qwik";
-
 import "~/styles/components/card/dynamicMediaCard.css";
+import { TDynamicMediaCard } from "~/types/components/card/dynamicMediaCard.type";
 
-interface DynamicMediaCardProps {
-  title: string;
-  description: string;
-}
-
-export default component$((props: DynamicMediaCardProps) => {
+export default component$((props: TDynamicMediaCard) => {
   return (
     <div class="mx-auto w-screen max-w-2xl overflow-hidden rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
       <div class="relative mb-6 h-64">
@@ -33,9 +28,9 @@ export default component$((props: DynamicMediaCardProps) => {
         ].map((img, index) => (
           <img
             key={index}
-            src={`/api/placeholder/${img.size}/${img.size - 100}`}
+            src={props.thumbnail}
             alt={`Media content ${index + 1}`}
-            class={`absolute rounded-lg shadow-md transition-all duration-500 hover:z-10 hover:scale-105 ${
+            class={`card-image absolute rounded-lg shadow-md ${
               index === 0
                 ? "left-0 top-0 h-full w-3/4 object-cover"
                 : index === 1

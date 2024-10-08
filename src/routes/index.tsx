@@ -1,4 +1,4 @@
-import { component$, useSignal, useTask$, useStyles$ } from "@builder.io/qwik";
+import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import envLoader from "~/modules/env/envLoader";
 import fetcher from "~/modules/fetching/fetcher";
 import ytApiUrlGenerator from "~/modules/url/api/ytApiUrlGenerator";
@@ -14,6 +14,7 @@ import DynamicMediaCard from "~/components/card/dynamicMediaCard";
 
 export default component$(() => {
   const response = useSignal<TRouteIndexVideoItem[]>([]);
+  const thumbnailUrl = useSignal("");
   const formAction = useSignal<string>("");
 
   useTask$(async () => {
@@ -36,6 +37,8 @@ export default component$(() => {
     formAction.value = first_server_route;
 
     const data = await res_from_vid_srvr.json();
+    thumbnailUrl.value = data.items[0].snippet.thumbnails.maxres.url;
+    console.log(data.items[0].snippet.thumbnails);
     response.value = data.items;
   });
 
@@ -49,6 +52,7 @@ export default component$(() => {
           <DynamicMediaCard
             title="테스트 타이틀"
             description="테스트 데스크립션"
+            thumbnail={thumbnailUrl.value}
           />
         </div>
         <CircleMenu />
