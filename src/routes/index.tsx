@@ -56,16 +56,32 @@ export default component$(() => {
         class="relative flex h-screen w-screen flex-col items-center overflow-hidden"
         style="background: linear-gradient(180deg, #FE3E3E 0%, #982525 100%);"
       >
-        <div class="absolute left-14 top-14">
+        {/* left */}
+
+        <div class="absolute bottom-1/2 left-64 ">
           <img src="./public/basketball.png" alt="" class="h-auto w-auto" />
         </div>
 
-        <div class="absolute bottom-14 left-14">
+        <div class="absolute left-14 top-14">
+          <img src="./public/flies.png" alt="" class="h-auto w-auto" />
+        </div>
+
+        <div class="absolute  bottom-14 left-14">
           <img src="./public/smileCry.png" alt="" class="h-auto w-auto" />
         </div>
 
-        <div class="absolute right-14 top-14">
+        {/* right */}
+
+        <div class="absolute right-40 top-14">
           <img src="./public/smileKen.png" alt="" class="h-auto w-auto" />
+        </div>
+
+        <div class="absolute right-72 top-64">
+          <img src="./public/cookieMan.png" alt="" class="h-auto w-auto" />
+        </div>
+
+        <div class="absolute bottom-28 right-8">
+          <img src="./public/cactus.png" alt="" class="h-auto w-auto" />
         </div>
 
         <div class="flex h-3/4 w-3/4 items-center justify-center ">
