@@ -38,12 +38,6 @@ export default component$(() => {
     formAction.value = first_server_route;
 
     const data = await res_from_vid_srvr.json();
-<<<<<<< HEAD
-    console.log(data);
-    thumbnailUrl.value = data.items[0].snippet.thumbnails.maxres.url;
-    // console.log(data.items[0].snippet.thumbnails);
-    response.value = data.items;
-=======
     const items = data.items;
     console.log(data);
 
@@ -54,7 +48,6 @@ export default component$(() => {
     videoIds.value = items.slice(0, 3).map((item: any) => item.id); // 비디오 ID를 추출하여 저장
 
     response.value = items;
->>>>>>> c1b34c036bccbb8dbf79951e8737d528223e0e99
   });
 
   return (
@@ -81,10 +74,6 @@ export default component$(() => {
 
         <div class="absolute right-40 top-14">
           <img src="./public/smileKen.png" alt="" class="h-auto w-auto" />
-        </div>
-
-        <div class="absolute right-72 top-64">
-          <img src="./public/cookieMan.png" alt="" class="h-auto w-auto" />
         </div>
 
         <div class="absolute bottom-28 right-8">
