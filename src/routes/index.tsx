@@ -37,8 +37,9 @@ export default component$(() => {
     formAction.value = first_server_route;
 
     const data = await res_from_vid_srvr.json();
+    console.log(data);
     thumbnailUrl.value = data.items[0].snippet.thumbnails.maxres.url;
-    console.log(data.items[0].snippet.thumbnails);
+    // console.log(data.items[0].snippet.thumbnails);
     response.value = data.items;
   });
 
