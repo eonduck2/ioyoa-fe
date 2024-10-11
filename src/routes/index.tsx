@@ -52,40 +52,15 @@ export default component$(() => {
 
   return (
     <>
-      <div class="relative flex h-screen w-screen flex-col items-center overflow-hidden bg-purple-200">
-        {/* left */}
-
-        {/* <div class="absolute left-14 top-14">
-          <img src="./public/flies.png" alt="" width="130" height="77" />
-        </div>
-
-        <div class="absolute bottom-1/2 left-64 ">
-          <img src="./public/basketball.png" alt="" width="100" height="102" />
-        </div>
-
-        <div class="absolute  bottom-14 left-14">
-          <img src="./public/smileCry.png" alt="" width="75" height="70" />
-        </div> */}
-
-        {/* right */}
-
-        {/* <div class="absolute right-40 top-14">
-          <img src="./public/smileKen.png" alt="" width="138" height="132" />
-        </div>
-
-        <div class="absolute bottom-28 right-8">
-          <img src="./public/cactus.png" alt="" width="215" height="194" />
-        </div> */}
-
+      <div class="relative flex h-screen w-screen flex-col items-center overflow-hidden bg-gradient-to-br from-blue-300 to-pink-300">
         <div class="flex h-3/4 w-3/4 items-center justify-center ">
-          {/* DynamicMediaCard에 3개의 썸네일과 비디오 ID 전달 */}
           <DynamicMediaCard
             thumbnail0={thumbnailUrls.value[0]}
             thumbnail1={thumbnailUrls.value[1]}
             thumbnail2={thumbnailUrls.value[2]}
-            videoId0={videoIds.value[0]} // 첫 번째 비디오 ID
-            videoId1={videoIds.value[1]} // 두 번째 비디오 ID
-            videoId2={videoIds.value[2]} // 세 번째 비디오 ID
+            videoId0={videoIds.value[0]}
+            videoId1={videoIds.value[1]}
+            videoId2={videoIds.value[2]}
           />
         </div>
         <div>

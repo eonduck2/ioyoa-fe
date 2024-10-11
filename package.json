@@ -64,5 +64,9 @@
     "vite": "5.3.5",
     "vite-tsconfig-paths": "^4.2.1",
     "wrangler": "^3.0.0"
+  },
+  "dependencies": {
+    "@types/three": "^0.169.0",
+    "three": "^0.169.0"
   }
 }
