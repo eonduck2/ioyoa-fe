@@ -4,8 +4,8 @@ import { TDynamicMediaCard } from "~/types/components/card/dynamicMediaCard.type
 
 export default component$((props: TDynamicMediaCard) => {
   return (
-    <div class="mx-auto w-screen max-w-2xl overflow-hidden rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
-      <div class="relative mb-6 h-64">
+    <div class="mx-auto h-5/6 w-3/5 overflow-hidden rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
+      <div class="relative mb-6 mt-10 h-64">
         {[
           {
             size: 400,
@@ -45,7 +45,9 @@ export default component$((props: TDynamicMediaCard) => {
         ))}
       </div>
       <div>
-        <h2 class="mb-2 text-2xl font-bold text-white">{props.title}</h2>
+        <h2 class="text-neutral-500-300 mb-2 text-4xl font-bold">
+          {props.title}
+        </h2>
         <p class="mb-4 text-lg text-white">{props.description}</p>
       </div>
     </div>
