@@ -52,33 +52,30 @@ export default component$(() => {
 
   return (
     <>
-      <div
-        class="relative flex h-screen w-screen flex-col items-center overflow-hidden"
-        style="background: linear-gradient(180deg, #FE3E3E 0%, #982525 100%);"
-      >
+      <div class="relative flex h-screen w-screen flex-col items-center overflow-hidden bg-purple-200">
         {/* left */}
 
-        <div class="absolute bottom-1/2 left-64 ">
-          <img src="./public/basketball.png" alt="" class="h-auto w-auto" />
+        {/* <div class="absolute left-14 top-14">
+          <img src="./public/flies.png" alt="" width="130" height="77" />
         </div>
 
-        <div class="absolute left-14 top-14">
-          <img src="./public/flies.png" alt="" class="h-auto w-auto" />
+        <div class="absolute bottom-1/2 left-64 ">
+          <img src="./public/basketball.png" alt="" width="100" height="102" />
         </div>
 
         <div class="absolute  bottom-14 left-14">
-          <img src="./public/smileCry.png" alt="" class="h-auto w-auto" />
-        </div>
+          <img src="./public/smileCry.png" alt="" width="75" height="70" />
+        </div> */}
 
         {/* right */}
 
-        <div class="absolute right-40 top-14">
-          <img src="./public/smileKen.png" alt="" class="h-auto w-auto" />
+        {/* <div class="absolute right-40 top-14">
+          <img src="./public/smileKen.png" alt="" width="138" height="132" />
         </div>
 
         <div class="absolute bottom-28 right-8">
-          <img src="./public/cactus.png" alt="" class="h-auto w-auto" />
-        </div>
+          <img src="./public/cactus.png" alt="" width="215" height="194" />
+        </div> */}
 
         <div class="flex h-3/4 w-3/4 items-center justify-center ">
           {/* DynamicMediaCard에 3개의 썸네일과 비디오 ID 전달 */}

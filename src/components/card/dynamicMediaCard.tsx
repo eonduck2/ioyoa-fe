@@ -8,7 +8,7 @@ export default component$((props: TDynamicMediaCard) => {
   });
 
   return (
-    <div class="mx-auto h-5/6 w-3/5 overflow-hidden rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
+    <div class="mx-auto h-5/6 w-3/5 overflow-hidden rounded-lg bg-gradient-to-br from-[#FE3E3E] to-[#982525] p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
       <div class="relative mb-6 mt-10 h-64">
         {/* 각 썸네일에 대한 이미지 설정 */}
         {[
