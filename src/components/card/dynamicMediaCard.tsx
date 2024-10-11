@@ -44,11 +44,13 @@ export default component$((props: TDynamicMediaCard) => {
           />
         ))}
       </div>
-      <div>
-        <h2 class="text-neutral-500-300 mb-2 text-4xl font-bold">
-          {props.title}
-        </h2>
-        <p class="mb-4 text-lg text-white">{props.description}</p>
+      <div class="mt-7 h-1/3 w-full rounded-lg border border-gray-300 bg-white p-2 shadow-lg">
+        <div class="h-full w-full rounded-lg border-2 border-blue-400 p-4">
+          <h2 class="mb-2 text-4xl font-bold text-black">
+            <span class="text-red-600">YouTube</span> 검색 유틸리티
+          </h2>
+          <p class="mb-4 text-lg text-gray-600">ㅎㅇ</p>
+        </div>
       </div>
     </div>
   );

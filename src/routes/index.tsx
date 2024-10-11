@@ -49,11 +49,7 @@ export default component$(() => {
         style="background: linear-gradient(180deg, #FE3E3E 0%, #982525 100%);"
       >
         <div class="flex h-3/4 w-3/4 items-center justify-center ">
-          <DynamicMediaCard
-            title="SEARCH YOUR YOUTUBE"
-            description=""
-            thumbnail={thumbnailUrl.value}
-          />
+          <DynamicMediaCard thumbnail={thumbnailUrl.value} />
         </div>
         <div>
           <CircleMenu />
