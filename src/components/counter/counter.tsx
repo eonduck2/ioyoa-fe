@@ -1,5 +1,5 @@
 import { component$, useSignal, $ } from "@builder.io/qwik";
-import styles from "./counter.module.css";
+import styles from "../../styles/components/counter/counter.module.css";
 import Gauge from "../gauge/index";
 
 export default component$((props: { initialValue: number }) => {
