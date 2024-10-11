@@ -15,10 +15,39 @@
   justify-content: center;
   cursor: pointer;
   transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .menu-button:hover {
   transform: scale(1.1);
+}
+
+.menu-button span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+  font-size: 24px;
+}
+
+.menu-button .plus {
+  opacity: 1;
+}
+
+.menu-button .minus {
+  opacity: 0;
+}
+
+.menu-button.open .plus {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.menu-button.open .minus {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg);
 }
 
 .menu-items {
@@ -45,8 +74,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 5rem; /* 고정된 너비 */
-  height: 5rem; /* 고정된 높이 */
+  width: 5rem;
+  height: 5rem;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -54,7 +83,7 @@
   transition: all 0.3s ease;
   opacity: 0;
   transform: translateY(20px);
-  overflow: hidden; /* 내용이 넘치는 경우 숨김 처리 */
+  overflow: hidden;
 }
 
 .menu-item:hover {

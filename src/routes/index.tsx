@@ -15,6 +15,7 @@ import DynamicMediaCard from "~/components/card/dynamicMediaCard";
 export default component$(() => {
   const response = useSignal<TRouteIndexVideoItem[]>([]);
   const thumbnailUrls = useSignal<string[]>([]);
+  const videoIds = useSignal<string[]>([]); // 비디오 ID를 저장할 배열
   const formAction = useSignal<string>("");
 
   useTask$(async () => {
@@ -44,10 +45,14 @@ export default component$(() => {
     response.value = data.items;
 =======
     const items = data.items;
+    console.log(data);
 
     thumbnailUrls.value = items
       .slice(0, 3)
       .map((item: any) => item.snippet.thumbnails.maxres.url);
+
+    videoIds.value = items.slice(0, 3).map((item: any) => item.id); // 비디오 ID를 추출하여 저장
+
     response.value = items;
 >>>>>>> c1b34c036bccbb8dbf79951e8737d528223e0e99
   });
@@ -55,15 +60,46 @@ export default component$(() => {
   return (
     <>
       <div
-        class="flex h-screen w-screen flex-col items-center overflow-hidden"
+        class="relative flex h-screen w-screen flex-col items-center overflow-hidden"
         style="background: linear-gradient(180deg, #FE3E3E 0%, #982525 100%);"
       >
+        {/* left */}
+
+        <div class="absolute bottom-1/2 left-64 ">
+          <img src="./public/basketball.png" alt="" class="h-auto w-auto" />
+        </div>
+
+        <div class="absolute left-14 top-14">
+          <img src="./public/flies.png" alt="" class="h-auto w-auto" />
+        </div>
+
+        <div class="absolute  bottom-14 left-14">
+          <img src="./public/smileCry.png" alt="" class="h-auto w-auto" />
+        </div>
+
+        {/* right */}
+
+        <div class="absolute right-40 top-14">
+          <img src="./public/smileKen.png" alt="" class="h-auto w-auto" />
+        </div>
+
+        <div class="absolute right-72 top-64">
+          <img src="./public/cookieMan.png" alt="" class="h-auto w-auto" />
+        </div>
+
+        <div class="absolute bottom-28 right-8">
+          <img src="./public/cactus.png" alt="" class="h-auto w-auto" />
+        </div>
+
         <div class="flex h-3/4 w-3/4 items-center justify-center ">
-          {/* DynamicMediaCard에 3개의 썸네일 전달 */}
+          {/* DynamicMediaCard에 3개의 썸네일과 비디오 ID 전달 */}
           <DynamicMediaCard
             thumbnail0={thumbnailUrls.value[0]}
             thumbnail1={thumbnailUrls.value[1]}
             thumbnail2={thumbnailUrls.value[2]}
+            videoId0={videoIds.value[0]} // 첫 번째 비디오 ID
+            videoId1={videoIds.value[1]} // 두 번째 비디오 ID
+            videoId2={videoIds.value[2]} // 세 번째 비디오 ID
           />
         </div>
         <div>

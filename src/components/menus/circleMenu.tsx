@@ -54,8 +54,12 @@ export default component$(() => {
 
   return (
     <div class="menu-container">
-      <div class="menu-button" onClick$={toggleMenu}>
-        <span style="font-size: 24px;">+</span>
+      <div
+        class={`menu-button ${isOpen.value ? "open" : ""}`}
+        onClick$={toggleMenu}
+      >
+        <span class="plus">+</span>
+        <span class="minus">-</span>
       </div>
       <div ref={menuRef} class={`menu-items ${isOpen.value ? "active" : ""}`}>
         {menuItems.map((item, index) => (
