@@ -35,3 +35,12 @@
   z-index: 10;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
+
+.custom-scroll::-webkit-scrollbar {
+  display: none; /* 스크롤바 숨기기 */
+}
+
+.custom-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

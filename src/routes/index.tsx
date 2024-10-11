@@ -14,7 +14,7 @@ import DynamicMediaCard from "~/components/card/dynamicMediaCard";
 
 export default component$(() => {
   const response = useSignal<TRouteIndexVideoItem[]>([]);
-  const thumbnailUrl = useSignal("");
+  const thumbnailUrls = useSignal<string[]>([]);
   const formAction = useSignal<string>("");
 
   useTask$(async () => {
@@ -37,9 +37,12 @@ export default component$(() => {
     formAction.value = first_server_route;
 
     const data = await res_from_vid_srvr.json();
-    thumbnailUrl.value = data.items[0].snippet.thumbnails.maxres.url;
-    console.log(data.items[0].snippet.thumbnails);
-    response.value = data.items;
+    const items = data.items;
+
+    thumbnailUrls.value = items
+      .slice(0, 3)
+      .map((item: any) => item.snippet.thumbnails.maxres.url);
+    response.value = items;
   });
 
   return (
@@ -49,12 +52,16 @@ export default component$(() => {
         style="background: linear-gradient(180deg, #FE3E3E 0%, #982525 100%);"
       >
         <div class="flex h-3/4 w-3/4 items-center justify-center ">
-          <DynamicMediaCard thumbnail={thumbnailUrl.value} />
+          {/* DynamicMediaCard에 3개의 썸네일 전달 */}
+          <DynamicMediaCard
+            thumbnail0={thumbnailUrls.value[0]}
+            thumbnail1={thumbnailUrls.value[1]}
+            thumbnail2={thumbnailUrls.value[2]}
+          />
         </div>
         <div>
           <CircleMenu />
         </div>
-        {/* <img src="./basketball.png" alt="" /> */}
       </div>
     </>
   );

@@ -1,5 +1,5 @@
-import { TTitle } from "~/types/shared/title.type";
-
 export type TDynamicMediaCard = {
-  thumbnail: string;
+  thumbnail0: string;
+  thumbnail1: string;
+  thumbnail2: string;
 };
