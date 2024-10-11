@@ -4,8 +4,8 @@ import { TDynamicMediaCard } from "~/types/components/card/dynamicMediaCard.type
 
 export default component$((props: TDynamicMediaCard) => {
   return (
-    <div class="mx-auto w-screen max-w-2xl overflow-hidden rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
-      <div class="relative mb-6 h-64">
+    <div class="mx-auto h-5/6 w-3/5 overflow-hidden rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
+      <div class="relative mb-6 mt-10 h-64">
         {[
           {
             size: 400,
@@ -44,9 +44,13 @@ export default component$((props: TDynamicMediaCard) => {
           />
         ))}
       </div>
-      <div>
-        <h2 class="mb-2 text-2xl font-bold text-white">{props.title}</h2>
-        <p class="mb-4 text-lg text-white">{props.description}</p>
+      <div class="mt-7 h-1/3 w-full rounded-lg border border-gray-300 bg-white p-2 shadow-lg">
+        <div class="h-full w-full rounded-lg border-2 border-blue-400 p-4">
+          <h2 class="mb-2 text-4xl font-bold text-black">
+            <span class="text-red-600">YouTube</span> 검색 유틸리티
+          </h2>
+          <p class="mb-4 text-lg text-gray-600">ㅎㅇ</p>
+        </div>
       </div>
     </div>
   );

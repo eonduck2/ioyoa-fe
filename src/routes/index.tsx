@@ -46,17 +46,15 @@ export default component$(() => {
   return (
     <>
       <div
-        class="flex h-screen w-screen flex-col items-center justify-center"
+        class="flex h-screen w-screen flex-col items-center overflow-hidden"
         style="background: linear-gradient(180deg, #FE3E3E 0%, #982525 100%);"
       >
-        <div>
-          <DynamicMediaCard
-            title="테스트 타이틀"
-            description="테스트 데스크립션"
-            thumbnail={thumbnailUrl.value}
-          />
+        <div class="flex h-3/4 w-3/4 items-center justify-center ">
+          <DynamicMediaCard thumbnail={thumbnailUrl.value} />
         </div>
-        <CircleMenu />
+        <div>
+          <CircleMenu />
+        </div>
         {/* <img src="./basketball.png" alt="" /> */}
       </div>
     </>
