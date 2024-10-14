@@ -55,7 +55,6 @@ export default component$(() => {
         searchResult.value = data;
         console.log("검색 결과:", data);
       } catch (error) {
-        console.error("검색 중 오류 발생:", error);
       } finally {
         searchTask.value = false;
       }

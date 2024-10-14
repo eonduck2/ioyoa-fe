@@ -40,17 +40,12 @@ export default component$((props: SearchResultProps) => {
                 {item.snippet.channelTitle}
               </p>
               <p class="text-xs text-gray-500">
+                가입일: &nbsp;
                 {new Date(item.snippet.publishTime).toLocaleDateString()}
               </p>
               <p class="mt-2 line-clamp-2 text-sm">
                 {item.snippet.description}
               </p>
-              {/* 구독자 수 표시 */}
-              {item.statistics && (
-                <p class="mt-2 text-sm text-gray-700">
-                  구독자 수: {item.statistics.subscriberCount}명
-                </p>
-              )}
             </div>
           </div>
         ))}
