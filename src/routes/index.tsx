@@ -6,7 +6,7 @@ import urlGeneratorWithPort from "~/modules/url/urlGeneratorWithPort";
 import { EnvList } from "~/shared/env/envList.static";
 import requestTypes from "~/yt/apiRequestTypes/requestTypes.static";
 import mainIndexVideos from "~/yt/videos/mainIndexVideos.static";
-import httpMethod from "~/shared/http/methods/httpMethods.static";
+import HttpMethod from "~/shared/http/methods/httpMethods.static";
 import type { TRouteIndexVideoItem } from "~/types/route/index.type";
 import mime from "mime";
 import CircleMenu from "~/components/menus/circleMenu";
@@ -15,7 +15,7 @@ import DynamicMediaCard from "~/components/card/dynamicMediaCard";
 export default component$(() => {
   const response = useSignal<TRouteIndexVideoItem[]>([]);
   const thumbnailUrls = useSignal<string[]>([]);
-  const videoIds = useSignal<string[]>([]); // 비디오 ID를 저장할 배열
+  const videoIds = useSignal<string[]>([]);
   const formAction = useSignal<string>("");
 
   useTask$(async () => {
@@ -25,10 +25,10 @@ export default component$(() => {
 
     const first_server = await res.json();
     const first_server_route = first_server.route;
-    const res_from_vid_srvr = await fetcher(
+    const res_from_sec_srvr = await fetcher(
       urlGeneratorWithPort(first_server_route),
       {
-        method: httpMethod.POST,
+        method: HttpMethod.POST,
         body: JSON.stringify({
           url: ytApiUrlGenerator(requestTypes.videos, mainIndexVideos),
         }),
@@ -37,7 +37,8 @@ export default component$(() => {
     );
     formAction.value = first_server_route;
 
-    const data = await res_from_vid_srvr.json();
+    const data = await res_from_sec_srvr.json();
+
     const items = data.items;
 
     thumbnailUrls.value = items
