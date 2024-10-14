@@ -1,76 +1,43 @@
-import { component$, useSignal, useTask$ } from "@builder.io/qwik";
-import envLoader from "~/modules/env/envLoader";
-import fetcher from "~/modules/fetching/fetcher";
-import ytApiUrlGenerator from "~/modules/url/api/ytApiUrlGenerator";
-import urlGeneratorWithPort from "~/modules/url/urlGeneratorWithPort";
-import { EnvList } from "~/shared/env/envList.static";
-import requestTypes from "~/yt/apiRequestTypes/requestTypes.static";
-import mainIndexVideos from "~/yt/videos/mainIndexVideos.static";
-import httpMethod from "~/shared/http/methods/httpMethods.static";
-import type { TRouteIndexVideoItem } from "~/types/route/index.type";
-import mime from "mime";
-import InputWithBtn from "~/components/input/inputWithBtn";
-import Select_underline from "~/components/select/select_underline";
-import { categoryOptions } from "~/routes/index.static";
-import { formHandler } from "~/types/modules/route/index/formHandler";
+import { component$, useSignal, useStyles$, $ } from "@builder.io/qwik";
+import { IconSearchOutline } from "flowbite-qwik-icons";
+import SideBar from "~/components/menus/side/sideBar";
+import "../../styles/routes/search/index.css";
 
 export default component$(() => {
-  const response = useSignal<TRouteIndexVideoItem[]>([]);
-  const formAction = useSignal<string>("");
+  const searchQuery = useSignal("");
 
-  useTask$(async () => {
-    const res = await fetcher(
-      urlGeneratorWithPort(envLoader(EnvList.PUBLIC_EP_MAIN)),
-    );
-
-    const first_server = await res.json();
-    const first_server_route = first_server.route;
-    const res_from_vid_srvr = await fetcher(
-      urlGeneratorWithPort(first_server_route),
-      {
-        method: httpMethod.POST,
-        body: JSON.stringify({
-          url: ytApiUrlGenerator(requestTypes.videos, mainIndexVideos),
-        }),
-        headers: { "Content-Type": mime.getType("json") as string },
-      },
-    );
-    formAction.value = first_server_route;
-
-    const data = await res_from_vid_srvr.json();
-    response.value = data.items;
+  const handleSearch = $((e: Event) => {
+    e.preventDefault();
+    console.log("Searching for:", searchQuery.value);
   });
 
   return (
     <>
-      <div class="flex h-full w-full items-center justify-center bg-green-500">
-        <div
-          style={{
-            backgroundImage: "url('./bg-desktop.png')",
-            width: "100vw",
-            height: "100vh",
-            backgroundRepeat: "no-repeat",
-          }}
-        >
-          <form onSubmit$={(e) => formHandler(e, formAction.value)}>
-            <Select_underline name="searchCategory" options={categoryOptions} />
-            <InputWithBtn name="searchQuery" placeholder="Enter search term" />
+      <div class="flex overflow-x-hidden">
+        <SideBar />
+        <main class="main-content flex h-screen w-screen flex-col items-center justify-center">
+          <h1 class="mb-8 text-4xl font-bold text-red-600">
+            YouTube <span class="text-black">Search</span>
+          </h1>
+          <form onSubmit$={handleSearch} class="w-full max-w-md">
+            <div class="flex items-center border-b border-red-500 py-2">
+              <input
+                type="text"
+                class="input"
+                placeholder="검색어를 입력하세요"
+                value={searchQuery.value}
+                onInput$={(e) =>
+                  (searchQuery.value = (e.target as HTMLInputElement).value)
+                }
+              />
+              <button type="submit" class="button">
+                <IconSearchOutline class="mr-1 h-4 w-4" />
+                검색
+              </button>
+            </div>
           </form>
-          <div class="flex h-full w-full items-center justify-center">
-            {/* {response.value!.map((value) => {
-              return (
-                <picture key={value.id}>
-                  <source srcset={value.snippet.thumbnails.high.url} />
-                  <img
-                    src={value.snippet.thumbnails.high.url}
-                    alt={value.snippet.title}
-                    style={{ maxWidth: "100%", maxHeight: "100%" }}
-                  />
-                </picture>
-              );
-            })} */}
-          </div>
-        </div>
+          <p class="mt-4 text-gray-600">인기 검색어: 음악, 요리, 여행, 기술</p>
+        </main>
       </div>
     </>
   );

@@ -39,7 +39,6 @@ export default component$(() => {
 
     const data = await res_from_vid_srvr.json();
     const items = data.items;
-    console.log(data);
 
     thumbnailUrls.value = items
       .slice(0, 3)

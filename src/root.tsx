@@ -25,6 +25,7 @@ export default component$(() => {
       <head>
         <meta charset="utf-8" />
         <QwikPartytown forward={["gtag", "dataLayer.push"]} />
+        <link rel="icon" href="./public/favicon.ico" />
         <script
           async
           type="text/partytown"
