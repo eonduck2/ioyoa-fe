@@ -11,9 +11,9 @@ export default component$((props: TDynamicMediaCard) => {
     <div class="flex h-auto w-full flex-col items-center justify-center gap-5 overflow-hidden rounded-lg bg-gradient-to-b from-[#FE3E3E] to-[#982525] p-4 shadow-lg transition-all duration-300 hover:shadow-xl md:h-5/6 md:w-4/5 md:p-6 lg:w-3/5">
       <div class="relative mb-4 mt-4 h-48 w-full sm:h-56 md:mb-6 md:mt-10 md:h-64">
         {[
-          { thumbnail: props.thumbnail0, videoId: props.videoId0 },
-          { thumbnail: props.thumbnail1, videoId: props.videoId1 },
           { thumbnail: props.thumbnail2, videoId: props.videoId2 },
+          { thumbnail: props.thumbnail1, videoId: props.videoId1 },
+          { thumbnail: props.thumbnail0, videoId: props.videoId0 },
         ].map(({ thumbnail, videoId }, index) => (
           <img
             key={index}
