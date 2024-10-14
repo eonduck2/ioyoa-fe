@@ -45,6 +45,12 @@ export default component$((props: SearchResultProps) => {
               <p class="mt-2 line-clamp-2 text-sm">
                 {item.snippet.description}
               </p>
+              {/* 구독자 수 표시 */}
+              {item.statistics && (
+                <p class="mt-2 text-sm text-gray-700">
+                  구독자 수: {item.statistics.subscriberCount}명
+                </p>
+              )}
             </div>
           </div>
         ))}

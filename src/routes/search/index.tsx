@@ -72,16 +72,24 @@ export default component$(() => {
         <SideBar />
       </div>
       <main
-        class={`flex w-5/6 flex-1 flex-col overflow-hidden ${hasSearched.value ? "justify-start" : "justify-center"} items-center`}
+        class={`flex w-5/6 flex-1 flex-col overflow-hidden ${
+          hasSearched.value ? "justify-start" : "justify-center"
+        } items-center`}
       >
         <div
-          class={`mx-auto w-full max-w-md transition-all duration-300 ${hasSearched.value ? "mb-4" : "mb-0"}`}
+          class={`mx-auto w-full max-w-md transition-all duration-300 ${
+            hasSearched.value ? "mb-4" : "mb-0"
+          }`}
         >
-          <h1
-            class={`text-center text-4xl font-bold text-red-600 transition-all duration-300 ${hasSearched.value ? "mb-2" : "mb-8"}`}
-          >
-            YouTube <span class="text-black">Search</span>
-          </h1>
+          {!hasSearched.value && (
+            <h1
+              class={`mb-8 text-center text-4xl font-bold text-red-600 transition-all duration-300`}
+            >
+              YouTube <span class="text-black">Search</span>
+            </h1>
+          )}
+
+          {/* Search Form */}
           <form preventdefault:submit onSubmit$={handleSearch} class="w-full">
             <div class="flex items-center border-b border-red-500 py-2">
               <select
@@ -105,6 +113,8 @@ export default component$(() => {
             </div>
           </form>
         </div>
+
+        {/* Search Results */}
         {hasSearched.value && (
           <div class="flex-1 overflow-y-auto px-4">
             {searchResult.value && (
