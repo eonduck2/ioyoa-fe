@@ -68,11 +68,11 @@ export default component$(() => {
 
   return (
     <div class="flex h-screen overflow-hidden">
-      <div class="w-1/5">
+      <div class="w-1/6">
         <SideBar />
       </div>
       <main
-        class={`flex w-4/5 flex-1 flex-col overflow-hidden ${hasSearched.value ? "justify-start" : "justify-center"} items-center`}
+        class={`flex w-5/6 flex-1 flex-col overflow-hidden ${hasSearched.value ? "justify-start" : "justify-center"} items-center`}
       >
         <div
           class={`mx-auto w-full max-w-md transition-all duration-300 ${hasSearched.value ? "mb-4" : "mb-0"}`}
