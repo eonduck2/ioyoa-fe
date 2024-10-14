@@ -11,17 +11,19 @@ import ytApiUrlGenerator from "~/modules/url/api/ytApiUrlGenerator";
 import requestTypes from "~/yt/apiRequestTypes/requestTypes.static";
 import mime from "mime";
 import querySearcher from "~/modules/yt/search/querySearcher";
+import SearchResult from "~/components/search/searchResult";
 
 export default component$(() => {
   const searchQuery = useSignal("");
   const searchType = useSignal("channel");
   const searchTask = useSignal(false);
   const searchResult = useSignal(null);
+  const hasSearched = useSignal(false);
 
   const handleSearch = $((e: Event) => {
     e.preventDefault();
-    console.log("이종수");
     searchTask.value = true;
+    hasSearched.value = true;
   });
 
   useTask$(async ({ track }) => {
@@ -60,19 +62,27 @@ export default component$(() => {
     }
   });
 
+  const handleLoadMore$ = $(async () => {
+    console.log("더 많은 결과 로드");
+  });
+
   return (
-    <>
-      <div class="flex overflow-x-hidden">
+    <div class="flex h-screen overflow-hidden">
+      <div class="w-1/5">
         <SideBar />
-        <main class="main-content flex h-screen w-screen flex-col items-center justify-center">
-          <h1 class="mb-8 text-4xl font-bold text-red-600">
+      </div>
+      <main
+        class={`flex w-4/5 flex-1 flex-col overflow-hidden ${hasSearched.value ? "justify-start" : "justify-center"} items-center`}
+      >
+        <div
+          class={`mx-auto w-full max-w-md transition-all duration-300 ${hasSearched.value ? "mb-4" : "mb-0"}`}
+        >
+          <h1
+            class={`text-center text-4xl font-bold text-red-600 transition-all duration-300 ${hasSearched.value ? "mb-2" : "mb-8"}`}
+          >
             YouTube <span class="text-black">Search</span>
           </h1>
-          <form
-            preventdefault:submit
-            onSubmit$={handleSearch}
-            class="w-full max-w-md"
-          >
+          <form preventdefault:submit onSubmit$={handleSearch} class="w-full">
             <div class="flex items-center border-b border-red-500 py-2">
               <select
                 bind:value={searchType}
@@ -94,9 +104,18 @@ export default component$(() => {
               </button>
             </div>
           </form>
-          <p class="mt-4 text-gray-600">인기 검색어: 음악, 요리, 여행, 기술</p>
-        </main>
-      </div>
-    </>
+        </div>
+        {hasSearched.value && (
+          <div class="flex-1 overflow-y-auto px-4">
+            {searchResult.value && (
+              <SearchResult
+                searchResult={searchResult.value}
+                onLoadMore$={handleLoadMore$}
+              />
+            )}
+          </div>
+        )}
+      </main>
+    </div>
   );
 });
