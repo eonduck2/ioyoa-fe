@@ -22,7 +22,7 @@ export default component$((props: SearchResultProps) => {
       <h2 class="mb-4 text-xl font-bold">검색 결과: {totalResults}개</h2>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((item: any) => (
-          <Link
+          <a
             key={item.id.channelId || item.id.videoId || item.id.playlistId}
             href={`/channel/${item.id.channelId || item.snippet.channelId}`}
             class="overflow-hidden rounded-lg border shadow-lg"
@@ -49,7 +49,7 @@ export default component$((props: SearchResultProps) => {
                 {item.snippet.description}
               </p>
             </div>
-          </Link>
+          </a>
         ))}
       </div>
       {props.hasMoreResults && (

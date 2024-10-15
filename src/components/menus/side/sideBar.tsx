@@ -16,10 +16,10 @@ export default component$(() => {
             <IconHomeOutline class="mr-3 h-5 w-5" />홈
           </Link>
 
-          <div class="sidebar-item">
+          <Link href="/search" class="sidebar-item">
             <IconSearchOutline class="mr-3 h-5 w-5" />
             검색
-          </div>
+          </Link>
           <div class="sidebar-item">
             <IconFireOutline class="mr-3 h-5 w-5" />
             인기
