@@ -35,6 +35,7 @@ export default component$(() => {
 
   useTask$(async () => {
     const data = await getChannelDetails(channelId);
+    console.log(data);
     const snippet = data.items[0].snippet;
     const statistics = data.items[0].statistics;
     const status = data.items[0].status;
@@ -68,9 +69,9 @@ export default component$(() => {
   return (
     <div class="flex h-screen overflow-hidden">
       <div class="hidden w-1/6 xl:block">
-        <SideBar /> {/* Include the sidebar here */}
+        <SideBar />
       </div>
-      <main class="flex flex-1 flex-col overflow-hidden">
+      <main class="flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
         <div class="mx-auto max-w-4xl p-5">
           <div class="mb-8 overflow-hidden rounded-lg bg-white shadow-lg">
             <div class="relative h-40 bg-gradient-to-r from-green-500 to-red-600">
