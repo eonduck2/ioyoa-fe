@@ -26,10 +26,16 @@ export default component$(() => {
     try {
       const res = await fetcher(
         urlGeneratorWithPort(envLoader(EnvList.PUBLIC_EP_MAIN)),
+        {
+          method: HttpMethod.POST,
+          body: JSON.stringify({ serverType: "search" }),
+          headers: { "Content-Type": mime.getType("json") as string },
+        },
       );
 
       const first_server = await res.json();
       const first_server_route = first_server.route;
+
       const res_from_sec_srvr = await fetcher(
         urlGeneratorWithPort(first_server_route),
         {
@@ -61,7 +67,9 @@ export default component$(() => {
 
       nextPageToken.value = data.nextPageToken || "";
       console.log("검색 결과:", data);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error occurred:", error);
+    }
   });
 
   const handleSearch = $((e: Event) => {
@@ -111,7 +119,12 @@ export default component$(() => {
           )}
 
           {/* Search Form */}
-          <form preventdefault:submit onSubmit$={handleSearch} class="w-full">
+          <form
+            preventdefault:submit
+            onSubmit$={handleSearch}
+            class="w-full"
+            method="POST"
+          >
             <div class="flex items-center border-b border-red-500 py-2">
               <select
                 bind:value={searchType}
@@ -144,7 +157,6 @@ export default component$(() => {
                 onLoadMore$={handleLoadMore$}
                 isLoadingMore={isLoadingMore.value}
                 hasMoreResults={!!nextPageToken.value}
-                searchType={searchType.value}
               />
             )}
           </div>

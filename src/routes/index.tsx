@@ -19,12 +19,20 @@ export default component$(() => {
   const formAction = useSignal<string>("");
 
   useTask$(async () => {
+    const serverType = "video";
     const res = await fetcher(
       urlGeneratorWithPort(envLoader(EnvList.PUBLIC_EP_MAIN)),
+      {
+        method: HttpMethod.POST,
+        body: JSON.stringify({ serverType }),
+        headers: { "Content-Type": mime.getType("json") as string },
+      },
     );
 
     const first_server = await res.json();
     const first_server_route = first_server.route;
+    formAction.value = first_server_route;
+
     const res_from_sec_srvr = await fetcher(
       urlGeneratorWithPort(first_server_route),
       {
@@ -35,7 +43,6 @@ export default component$(() => {
         headers: { "Content-Type": mime.getType("json") as string },
       },
     );
-    formAction.value = first_server_route;
 
     const data = await res_from_sec_srvr.json();
 
