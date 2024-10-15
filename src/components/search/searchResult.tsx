@@ -3,12 +3,12 @@ import type { PropFunction } from "@builder.io/qwik";
 
 interface SearchResultProps {
   searchResult: any;
-  onLoadMore$: PropFunction<() => void>;
+  onLoadMore$: PropFunction<() => Promise<void>>;
+  isLoadingMore: boolean;
+  hasMoreResults: boolean;
 }
 
 export default component$((props: SearchResultProps) => {
-  const loadingMore = useSignal(false);
-
   if (!props.searchResult || !props.searchResult.pageInfo) {
     return <div class="p-4">검색 결과가 없습니다.</div>;
   }
@@ -50,19 +50,17 @@ export default component$((props: SearchResultProps) => {
           </div>
         ))}
       </div>
-      <div class="mt-4 text-center">
-        <button
-          onClick$={async () => {
-            loadingMore.value = true;
-            await props.onLoadMore$();
-            loadingMore.value = false;
-          }}
-          class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:bg-gray-400"
-          disabled={loadingMore.value}
-        >
-          {loadingMore.value ? "로딩 중..." : "더 보기"}
-        </button>
-      </div>
+      {props.hasMoreResults && (
+        <div class="mt-4 text-center">
+          <button
+            onClick$={props.onLoadMore$}
+            class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:bg-gray-400"
+            disabled={props.isLoadingMore}
+          >
+            {props.isLoadingMore ? "로딩 중..." : "더 보기"}
+          </button>
+        </div>
+      )}
     </div>
   );
 });

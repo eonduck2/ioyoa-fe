@@ -50,3 +50,19 @@
   background-color: #dc2626;
   border-color: #dc2626;
 }
+
+/* styles/routes/search/index.css */
+
+/* Hides scrollbar for webkit browsers (Chrome, Safari) */
+.hide-scrollbar {
+  overflow-y: scroll; /* Ensure vertical scroll is enabled */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Hides the scrollbar */
+}
+
+/* Hides scrollbar for Firefox */
+.hide-scrollbar {
+  scrollbar-width: none; /* Hides the scrollbar for Firefox */
+}

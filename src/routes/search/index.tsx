@@ -13,12 +13,60 @@ import mime from "mime";
 import querySearcher from "~/modules/yt/search/querySearcher";
 import SearchResult from "~/components/search/searchResult";
 
+// 검색 결과 타입 정의
+
 export default component$(() => {
   const searchQuery = useSignal("");
   const searchType = useSignal("channel");
   const searchTask = useSignal(false);
-  const searchResult = useSignal(null);
+  const searchResult = useSignal<any | null>(null); // 명확한 타입 지정
   const hasSearched = useSignal(false);
+  const nextPageToken = useSignal("");
+  const isLoadingMore = useSignal(false);
+
+  const performSearch = $(async (isLoadMore = false) => {
+    try {
+      const res = await fetcher(
+        urlGeneratorWithPort(envLoader(EnvList.PUBLIC_EP_MAIN)),
+      );
+
+      const first_server = await res.json();
+      const first_server_route = first_server.route;
+      const res_from_sec_srvr = await fetcher(
+        urlGeneratorWithPort(first_server_route),
+        {
+          method: HttpMethod.POST,
+          body: JSON.stringify({
+            url: ytApiUrlGenerator(
+              requestTypes.search,
+              querySearcher(
+                searchQuery.value,
+                searchType.value,
+                isLoadMore ? nextPageToken.value : "",
+              ),
+            ),
+          }),
+          headers: { "Content-Type": mime.getType("json") as string },
+        },
+      );
+
+      const data = await res_from_sec_srvr.json();
+
+      if (isLoadMore && searchResult.value) {
+        searchResult.value = {
+          ...searchResult.value,
+          items: [...searchResult.value.items, ...data.items],
+        };
+      } else {
+        searchResult.value = data;
+      }
+
+      nextPageToken.value = data.nextPageToken || "";
+      console.log("검색 결과:", data);
+    } catch (error) {
+      console.error("검색 중 오류 발생:", error);
+    }
+  });
 
   const handleSearch = $((e: Event) => {
     e.preventDefault();
@@ -30,48 +78,26 @@ export default component$(() => {
     track(() => searchTask.value);
 
     if (searchTask.value) {
-      try {
-        const res = await fetcher(
-          urlGeneratorWithPort(envLoader(EnvList.PUBLIC_EP_MAIN)),
-        );
-
-        const first_server = await res.json();
-        const first_server_route = first_server.route;
-        const res_from_sec_srvr = await fetcher(
-          urlGeneratorWithPort(first_server_route),
-          {
-            method: HttpMethod.POST,
-            body: JSON.stringify({
-              url: ytApiUrlGenerator(
-                requestTypes.search,
-                querySearcher(searchQuery.value, searchType.value),
-              ),
-            }),
-            headers: { "Content-Type": mime.getType("json") as string },
-          },
-        );
-
-        const data = await res_from_sec_srvr.json();
-        searchResult.value = data;
-        console.log("검색 결과:", data);
-      } catch (error) {
-      } finally {
-        searchTask.value = false;
-      }
+      await performSearch();
+      searchTask.value = false;
     }
   });
 
   const handleLoadMore$ = $(async () => {
-    console.log("더 많은 결과 로드");
+    if (nextPageToken.value && !isLoadingMore.value) {
+      isLoadingMore.value = true;
+      await performSearch(true);
+      isLoadingMore.value = false;
+    }
   });
 
   return (
     <div class="flex h-screen overflow-hidden">
-      <div class="w-1/6">
+      <div class="hidden w-1/6 xl:block">
         <SideBar />
       </div>
       <main
-        class={`flex w-5/6 flex-1 flex-col overflow-hidden ${
+        class={`flex flex-1 flex-col overflow-hidden ${
           hasSearched.value ? "justify-start" : "justify-center"
         } items-center`}
       >
@@ -115,11 +141,13 @@ export default component$(() => {
 
         {/* Search Results */}
         {hasSearched.value && (
-          <div class="flex-1 overflow-y-auto px-4">
+          <div class="hide-scrollbar flex-1 overflow-y-auto px-4">
             {searchResult.value && (
               <SearchResult
                 searchResult={searchResult.value}
                 onLoadMore$={handleLoadMore$}
+                isLoadingMore={isLoadingMore.value}
+                hasMoreResults={!!nextPageToken.value}
               />
             )}
           </div>
