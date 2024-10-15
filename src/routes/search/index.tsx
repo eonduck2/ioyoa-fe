@@ -13,13 +13,11 @@ import mime from "mime";
 import querySearcher from "~/modules/yt/search/querySearcher";
 import SearchResult from "~/components/search/searchResult";
 
-// 검색 결과 타입 정의
-
 export default component$(() => {
   const searchQuery = useSignal("");
   const searchType = useSignal("channel");
   const searchTask = useSignal(false);
-  const searchResult = useSignal<any | null>(null); // 명확한 타입 지정
+  const searchResult = useSignal<any | null>(null);
   const hasSearched = useSignal(false);
   const nextPageToken = useSignal("");
   const isLoadingMore = useSignal(false);
@@ -63,9 +61,7 @@ export default component$(() => {
 
       nextPageToken.value = data.nextPageToken || "";
       console.log("검색 결과:", data);
-    } catch (error) {
-      console.error("검색 중 오류 발생:", error);
-    }
+    } catch (error) {}
   });
 
   const handleSearch = $((e: Event) => {
@@ -148,6 +144,7 @@ export default component$(() => {
                 onLoadMore$={handleLoadMore$}
                 isLoadingMore={isLoadingMore.value}
                 hasMoreResults={!!nextPageToken.value}
+                searchType={searchType.value}
               />
             )}
           </div>
