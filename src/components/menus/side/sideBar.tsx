@@ -39,7 +39,7 @@ export default component$(() => {
 
           <div class="sidebar-item">
             <IconBrainOutline class="mr-3 h-5 w-5" />
-            Jammer AI
+            Jammer
           </div>
         </aside>
       </div>

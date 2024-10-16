@@ -5,5 +5,5 @@ export const menuItems: TMenuItems[] = [
   { icon: "🔥", label: "인기", href: "/mostPopular" },
   { icon: "📽️", label: "Cinema", href: "/" },
   { icon: "📌", label: "Picker", href: "/" },
-  { icon: "🤖", label: "Jammer AI", href: "/" },
+  { icon: "🤖", label: "Jammer", href: "/" },
 ];
