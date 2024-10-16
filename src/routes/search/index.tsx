@@ -49,6 +49,7 @@ export default component$(() => {
                 isLoadMore ? nextPageToken.value : "",
               ),
             ),
+            search_value: searchQuery.value,
           }),
           headers: { "Content-Type": mime.getType("json") as string },
         },
@@ -66,7 +67,6 @@ export default component$(() => {
       }
 
       nextPageToken.value = data.nextPageToken || "";
-      console.log("검색 결과:", data);
     } catch (error) {
       console.error("Error occurred:", error);
     }

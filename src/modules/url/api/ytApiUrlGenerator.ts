@@ -11,7 +11,7 @@ export default (apiType: string, params: Record<string, string>) => {
     `${apiType}?`,
   );
 
-  const __YT_API_KEY = envLoader(EnvList.PUBLIC_YT_API_KEY_SUB);
+  const __YT_API_KEY = envLoader(EnvList.PUBLIC_YT_API_KEY);
 
   params.key = __YT_API_KEY;
 

@@ -14,7 +14,7 @@ export default async (channelId: string) => {
       urlGeneratorWithPort(envLoader(EnvList.PUBLIC_EP_MAIN)),
       {
         method: HttpMethod.POST,
-        body: JSON.stringify({ serverType: "channel" }),
+        body: JSON.stringify({ serverType: "channels" }),
         headers: { "Content-Type": mime.getType("json") as string },
       },
     );

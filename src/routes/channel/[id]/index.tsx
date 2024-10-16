@@ -35,7 +35,6 @@ export default component$(() => {
 
   useTask$(async () => {
     const data = await getChannelDetails(channelId);
-    console.log(data);
     const snippet = data.items[0].snippet;
     const statistics = data.items[0].statistics;
     const status = data.items[0].status;
@@ -50,8 +49,6 @@ export default component$(() => {
     channelData.relatedPlaylists = contentDetails.relatedPlaylists;
     channelData.country = snippet.country;
     channelData.privacyStatus = status.privacyStatus;
-
-    console.log(channelData.relatedPlaylists.uploads);
   });
 
   const formatNumber = (num: string) => {
